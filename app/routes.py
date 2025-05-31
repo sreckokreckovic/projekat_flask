@@ -1,5 +1,7 @@
-from app import app
+from flask import Blueprint
 
-@app.route('/')
+bp = Blueprint('main', __name__)
+
+@bp.route('/')
 def show():
     return "Test test"
