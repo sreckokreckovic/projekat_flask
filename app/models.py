@@ -20,7 +20,7 @@ class Brand(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
 
-    models = db.relationship("Model", backref="brand", lazy="True")
+    models = db.relationship("Model", backref="brand", lazy="select")
 
 
 class Model(db.Model):
@@ -29,7 +29,7 @@ class Model(db.Model):
     brand_id = db.Column(db.Integer, db.ForeignKey("brands.id"), nullable=False)
     name = db.Column(db.String(50), nullable=False)
 
-    cars = db.relationship("Car", backref="model", lazy=True)
+    cars = db.relationship("Car", backref="model", lazy="select")
 
 
 class Car(db.Model):
@@ -45,8 +45,8 @@ class Car(db.Model):
     price_per_day = db.Column(db.Float)
     description = db.Column(db.Text)
 
-    images = db.relationship("CarImage", backref="car", lazy=True)
-    reservations = db.relationship("Reservation", backref="car", lazy=True)
+    images = db.relationship("CarImage", backref="car", lazy="select")
+    reservations = db.relationship("Reservation", backref="car", lazy="select")
 
 
 class Location(db.Model):
@@ -67,8 +67,8 @@ class User(db.Model):
     password = db.Column(db.String(128))
     role = db.Column(db.String(20), default="user")
 
-    reservations = db.relationship("Reservation", backref="user", lazy=True)
-    reviews = db.relationship("Review", backref="user", lazy=True)
+    reservations = db.relationship("Reservation", backref="user", lazy="select")
+    reviews = db.relationship("Review", backref="user", lazy="select")
 
 
 class Reservation(db.Model):
