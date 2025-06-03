@@ -17,3 +17,9 @@ class RegistrationForm(FlaskForm):
         ],
     )
     submit = SubmitField("Registruj se")
+
+class LoginForm(FlaskForm):
+    email = StringField("Email", validators=[DataRequired(),Email()])
+    password = PasswordField("Lozinka",validators=[DataRequired()])
+    submit = SubmitField("Prijavi se")
+    
