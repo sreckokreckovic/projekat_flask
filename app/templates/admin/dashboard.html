@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Panel - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+    <header>
+        <h1>Admin Panel</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('main.admin_cars') }}">🚗 Automobili</a></li>
+                <li><a href="{{ url_for('main.admin_users') }}">👨🏻‍💼 Korisnici</a></li>
+                <li><a href="{{ url_for('main.admin_reservations') }}">📅 Rezervacije</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>
+            <center>Dobrodošli u Admin Panel</center>
+        </h2>
+        <p>
+            <center>Koristite navigaciju za upravljanje automobilima i korisnicima.</center>
+        </p>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AutoMaster Admin</p>
+    </footer>
+</body>
+
+</html>

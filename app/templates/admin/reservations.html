@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Admin panel | Rezervacije i Lokacije</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+    <header>
+        <h1 class="site-title">Admin panel</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('main.admin_cars') }}">🚗 Automobili</a></li>
+                <li><a href="{{ url_for('main.admin_users') }}">👨🏻‍💼 Korisnici</a></li>
+                <li><a href="{{ url_for('main.admin_reservations') }}">📅 Rezervacije</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <main class="admin-container">
+        <section class="form-section">
+            <h2>Dodaj novu lokaciju</h2>
+            <form method="POST" class="register-form">
+                <label for="name">Naziv lokacije</label>
+                <input type="text" name="name" id="name" required />
+
+                <label for="address">Adresa</label>
+                <input type="text" name="address" id="address" />
+
+                <label for="city">Grad</label>
+                <input type="text" name="city" id="city" />
+
+                <button type="submit" class="link-button blue">✅ Dodaj lokaciju</button>
+            </form>
+        </section>
+
+        <section class="existing-locations">
+            <h2>Postojeće lokacije</h2>
+            {% if locations %}
+            <ul class="location-list">
+                {% for loc in locations %}
+                <li>
+                    <strong>{{ loc.name }}</strong> — {{ loc.address or "Bez adrese" }}, {{ loc.city or "Bez grada" }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>Nema unesenih lokacija.</p>
+            {% endif %}
+        </section>
+
+        <section class="reservation-table">
+            <h2>Pregled svih rezervacija</h2>
+            {% if reservations %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Korisnik</th>
+                        <th>Vozilo</th>
+                        <th>Od</th>
+                        <th>Do</th>
+                        <th>Preuzimanje</th>
+                        <th>Vraćanje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for res in reservations %}
+                    <tr>
+                        <td>{{ res.id }}</td>
+                        <td>{{ res.user.email }}</td>
+                        <td>{{ res.car.model.brand.name }} {{ res.car.model.name }}</td>
+                        <td>{{ res.date_from.strftime('%d.%m.%Y') }}</td>
+                        <td>{{ res.date_to.strftime('%d.%m.%Y') }}</td>
+                        <td>{{ res.pickup_location.name }}</td>
+                        <td>{{ res.return_location.name }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Nema rezervacija za prikaz.</p>
+            {% endif %}
+        </section>
+        <a href="{{ url_for('main.export_reservations') }}" class="link-button blue">📥 Eksportuj rezervacije u
+            Excel</a>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AutoMaster Admin</p>
+    </footer>
+</body>
+
+</html>

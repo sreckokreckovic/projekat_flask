@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>AutoMaster | Registracija</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+	<header>
+		<h1 class="site-title">AutoMaster</h1>
+		<nav>
+			<ul>
+				{% if current_user.is_authenticated %}
+				<li><a href="{{ url_for('main.reservations') }}" title="Moje rezervacije">📅</a></li>
+				{% endif %}
+				<li><a href="{{ url_for('main.cars') }}" title="Auta">🚗</a></li>
+				<li>
+					{% if current_user.is_authenticated %}
+					<a href="{{ url_for('main.profile') }}" title="Profil">👨🏻‍💼</a>
+					{% else %}
+					<a href="{{ url_for('main.login') }}" title="Prijava">👨🏻‍💼</a>
+					{% endif %}
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+	<ul class="flashes">
+		{% for category, message in messages %}
+		<li class="{{ category }}">{{ message }}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+	{% endwith %}
+
+	<main>
+		<section class="form-section">
+			<h2>Registracija</h2>
+			<form class="register-form" method="POST" action="{{ url_for('main.register') }}">
+				{{ form.hidden_tag() }}
+
+				<label for="first_name">Ime</label>
+				{{ form.first_name(id="first_name", class="form-control", placeholder="Unesite ime") }}
+
+				<label for="last_name">Prezime</label>
+				{{ form.last_name(id="last_name", class="form-control", placeholder="Unesite prezime") }}
+
+				<label for="phone">Telefon</label>
+				{{ form.phone(id="phone", class="form-control", placeholder="Unesite broj telefona") }}
+
+				<label for="email">Email</label>
+				{{ form.email(id="email", class="form-control", placeholder="Unesite email") }}
+
+				<label for="password">Lozinka</label>
+				{{ form.password(id="password", class="form-control", placeholder="Unesite lozinku") }}
+
+				<label for="confirm_password">Ponovi lozinku</label>
+				{{ form.confirm_password(id="confirm_password", class="form-control", placeholder="Potvrdite lozinku") }}
+
+				{{ form.submit(class="btn") }}
+			</form>
+			<p>
+				Imate nalog? <a href="{{ url_for('main.login') }}">Prijavi se</a>
+			</p>
+		</section>
+	</main>
+
+	<footer>
+		<p>&copy; 2025 AutoMaster</p>
+	</footer>
+</body>
+
+</html>

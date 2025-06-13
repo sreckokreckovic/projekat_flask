@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Admin panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+    <header>
+        <h1 class="site-title">Admin panel</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('main.admin_cars') }}">🚗 Automobili</a></li>
+                <li><a href="{{ url_for('main.admin_users') }}">👨🏻‍💼 Korisnici</a></li>
+                <li><a href="{{ url_for('main.admin_reservations') }}">📅 Rezervacije</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h2>Dodaj Novi Automobil</h2>
+            <form method="POST" action="{{ url_for('main.admin_add_car') }}" enctype="multipart/form-data"
+                class="register-form">
+
+
+                <label>Model</label>
+                <select name="model_id" required>
+                    {% for model in models %}
+                    <option value="{{ model.id }}">{{ model.brand.name }} - {{ model.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <label>Godina</label>
+                <input type="number" name="year" required>
+
+                <label>Broj vrata</label>
+                <input type="number" name="doors" required>
+
+                <label>Broj sjedišta</label>
+                <input type="number" name="seats" required>
+
+                <label>Gorivo</label>
+                <select name="fuel" required>
+                    <option value="petrol">Benzin</option>
+                    <option value="diesel">Dizel</option>
+                </select>
+
+                <label>Mjenjač</label>
+                <select name="transmission" required>
+                    <option value="manual">Manuelni</option>
+                    <option value="automatic">Automatski</option>
+                </select>
+
+                <label>Snaga (KS)</label>
+                <input type="number" name="power" required>
+
+                <label>Cijena po danu (€)</label>
+                <input type="number" step="0.01" name="price_per_day" required>
+
+                <label>Opis</label>
+                <textarea name="description" rows="4"></textarea>
+
+                <label>Slika vozila</label>
+                <input type="file" name="image" accept="image/*" required>
+
+                <button type="submit" class="btn">Dodaj Auto</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AutoMaster Admin</p>
+    </footer>
+</body>
+
+</html>

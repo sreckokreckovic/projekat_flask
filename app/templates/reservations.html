@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moje rezervacije | AutoMaster</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+    <header>
+        <h1 class="site-title">AutoMaster</h1>
+        <nav>
+            <ul>
+                <li><a class="active" href="{{ url_for('main.reservations') }}" title="Moje rezervacije">📅</a></li>
+                <li><a href="{{ url_for('main.cars') }}" title="Auta">🚗</a></li>
+                <li><a href="{{ url_for('main.profile') }}" title="Profil">👨🏻‍💼</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-rez">
+        <section class="form-section">
+            <h2>
+                <center>Moje rezervacije</center>
+            </h2>
+            {% if reservations %}
+            <ul class="reservation-list">
+                {% for r in reservations %}
+                <li class="reservation-card">
+                    <h3>{{ r.car.model.brand.name }} {{ r.car.model.name }}</h3>
+                    <p><strong>Datum:</strong> {{ r.date_from.strftime('%d.%m.%Y') }} –
+                        {{ r.date_to.strftime('%d.%m.%Y') }}</p>
+                    <p><strong>Preuzimanje:</strong> {{ r.pickup_location.name }}</p>
+                    <p><strong>Vraćanje:</strong> {{ r.return_location.name }}</p>
+                    <p><strong>Cijena:</strong> {{ "%.2f"|format(r.total_price) }} €</p>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>Nema aktivnih rezervacija.</p>
+            {% endif %}
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AutoMaster</p>
+    </footer>
+</body>
+
+</html>

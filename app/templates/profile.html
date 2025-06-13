@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AutoMaster | Profil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+    <header>
+        <h1 class="site-title">AutoMaster</h1>
+        <nav>
+            <ul>
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('main.reservations') }}" title="Moje rezervacije">📅</a></li>
+                {% endif %}
+                <li><a href="{{ url_for('main.cars') }}" title="Auta">🚗</a></li>
+                <li>
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('main.profile') }}" title="Profil">👨🏻‍💼</a>
+                    {% else %}
+                    <a href="{{ url_for('main.login') }}" title="Prijava">👨🏻‍💼</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="form-section">
+        <h2 style="margin-top: 20px;">
+            <center>Moj profil</center>
+        </h2>
+
+        <div style="margin-top: 20px;" class="profile-info">
+            <p><strong>Ime:</strong> {{ user.first_name }}</p>
+            <p><strong>Prezime:</strong> {{ user.last_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+
+        <form method="get" action="{{ url_for('main.logout') }}" class="register-form">
+            <button type="submit" style="margin-top: 20px;">Odjavi se</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AutoMaster</p>
+    </footer>
+</body>
+
+</html>

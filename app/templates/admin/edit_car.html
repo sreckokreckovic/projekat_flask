@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Admin panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+    <header>
+        <h1 class="site-title">Admin panel</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('main.admin_cars') }}">🚗 Automobili</a></li>
+                <li><a href="{{ url_for('main.admin_users') }}">👨🏻‍💼 Korisnici</a></li>
+                <li><a href="{{ url_for('main.admin_reservations') }}">📅 Rezervacije</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h2>{{ car.model.brand.name }} {{ car.model.name }}</h2>
+            <form method="POST" class="register-form">
+
+                <label>Godina</label>
+                <input type="number" name="year" value="{{ car.year }}" required>
+
+                <label>Vrata</label>
+                <input type="number" name="doors" value="{{ car.doors }}" required>
+
+                <label>Sjedišta</label>
+                <input type="number" name="seats" value="{{ car.seats }}" required>
+
+                <label>Gorivo</label>
+                <select name="fuel" required>
+                    <option value="petrol" {% if car.fuel.value == 'petrol' %}selected{% endif %}>Benzin</option>
+                    <option value="diesel" {% if car.fuel.value == 'diesel' %}selected{% endif %}>Dizel</option>
+
+                </select>
+
+                <label>Mjenjač</label>
+                <select name="transmission" required>
+                    <option value="manual" {% if car.transmission.value == 'manual' %}selected{% endif %}>Manuelni
+                    </option>
+                    <option value="automatic" {% if car.transmission.value == 'automatic' %}selected{% endif %}>
+                        Automatski</option>
+                </select>
+
+                <label>Snaga (KS)</label>
+                <input type="number" name="power" value="{{ car.power }}" required>
+
+                <label>Cijena po danu (€)</label>
+                <input type="number" step="0.01" name="price_per_day" value="{{ car.price_per_day }}" required>
+
+                <label>Opis</label>
+                <textarea name="description" rows="4">{{ car.description }}</textarea>
+
+                <button type="submit" class="btn">Sačuvaj Promjene</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AutoMaster Admin</p>
+    </footer>
+</body>
+
+</html>

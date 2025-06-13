@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title> Admin panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+    <header>
+        <h1 class="site-title">Admin panel</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('main.admin_cars') }}">🚗 Automobili</a></li>
+                <li><a href="{{ url_for('main.admin_users') }}">👨🏻‍💼 Korisnici</a></li>
+                <li><a href="{{ url_for('main.admin_reservations') }}">📅 Rezervacije</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h2>Uredi Korisnika: {{user.first_name}} {{user.last_name}}</h2>
+            <form method="POST" class="register-form">
+                <label>Ime</label>
+                <input type="text" name="first_name" value="{{ user.first_name }}" required>
+
+                <label>Prezime</label>
+                <input type="text" name="last_name" value="{{ user.last_name }}" required>
+
+                <label>Telefon</label>
+                <input type="text" name="phone" value="{{ user.phone }}" required>
+
+                <label>Email</label>
+                <input type="email" name="email" value="{{ user.email }}" required>
+
+                <label>Uloga</label>
+                <select style="margin-bottom:10px;" name="role" required>
+                    <option value="user" {% if user.role == 'user' %}selected{% endif %}>Korisnik</option>
+                    <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+                </select>
+
+                <button type="submit" class="btn">Sačuvaj Promjene</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AutoMaster Admin</p>
+    </footer>
+</body>
+
+</html>

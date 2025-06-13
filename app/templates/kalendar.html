@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoMaster | Rezervacija</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+  <header>
+    <h1 class="site-title">AutoMaster</h1>
+    <nav>
+      <ul>
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('main.reservations') }}" title="Moje rezervacije">📅</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('main.cars') }}" title="Auta">🚗</a></li>
+        <li>
+          {% if current_user.is_authenticated %}
+          <a href="{{ url_for('main.profile') }}" title="Profil">👨🏻‍💼</a>
+          {% else %}
+          <a href="{{ url_for('main.login') }}" title="Prijava">👨🏻‍💼</a>
+          {% endif %}
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main-rez">
+    <section class="car-info">
+      <h2>Rezervises vozilo:</h2>
+      <div class="car-card">
+        {% if car.images and car.images|length > 0 %}
+        <img src="{{ car.images[0].url }}" alt="Slika {{ car.model.brand.name }} {{ car.model.name }}"
+          style="width:100%; max-width:400px; height:auto; border-radius: 8px; margin-bottom: 10px;">
+        {% endif %}
+        <h3>{{ car.model.brand.name }} {{ car.model.name }}</h3>
+        <p><strong>Godina:</strong> {{ car.year }}</p>
+        <p><strong>Mjenjač:</strong> {{ car.transmission.value }}</p>
+        <p><strong>Cijena po danu:</strong> {{ car.price_per_day }} €</p>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2>Rezervacija termina</h2>
+      <form method="POST" class="register-form">
+        <label for="pickup_location">Mjesto preuzimanja</label>
+        <select id="pickup_location" name="pickup_location" required>
+          <option value="" disabled selected>Odaberi mjesto</option>
+          {% for location in locations %}
+          <option value="{{ location.id }}">{{ location.name }}</option>
+          {% endfor %}
+        </select>
+
+        <label for="return_location">Mjesto vraćanja</label>
+        <select id="return_location" name="return_location" required>
+          <option value="" disabled selected>Odaberi mjesto</option>
+          {% for location in locations %}
+          <option value="{{ location.id }}">{{ location.name }}</option>
+          {% endfor %}
+        </select>
+
+        <label for="date_from">Datum preuzimanja</label>
+        <input type="date" id="date_from" name="date_from" required />
+
+        <label for="date_to">Datum vraćanja</label>
+        <input type="date" id="date_to" name="date_to" required />
+
+        <button type="submit">Rezervisi</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 AutoMaster</p>
+  </footer>
+</body>
+
+</html>
