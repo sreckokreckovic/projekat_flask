@@ -622,3 +622,51 @@ th {
 	border: 1px solid #ccc;
 	text-align: left;
 }
+
+@media (max-width: 768px) {
+	nav ul {
+		flex-direction:row;
+		gap: 1rem;
+	}
+
+	nav a {
+		font-size: 1.2rem;
+		padding: 0.3rem;
+	}
+
+	.main-rez,
+	main.auta-layout {
+		flex-direction: column;
+		padding: 1rem;
+	}
+
+	.filter-sidebar {
+		width: 100%;
+		position: static;
+	}
+
+	.auta-grid {
+		grid-template-columns: 1fr; 
+	}
+
+	.car-card {
+		width: 100%;
+	}
+
+	.users-admin {
+		width: 100%;
+		overflow-x: auto;
+		font-size: 0.9rem;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+	.auta-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.main-rez {
+		gap: 20px;
+		padding: 20px;
+	}
+}
