@@ -209,7 +209,7 @@ def admin_users():
     if current_user.role != "admin":
         flash("Nemate pristup ovoj stranici.", "danger")
         return redirect(url_for("main.cars"))
-    users = User.query.all()
+    users = User.query.filter(User.role != "admin").all()
     return render_template("admin/users.html", users=users)
 
 
@@ -289,9 +289,8 @@ def login():
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
             flash("Ulogovani ste!", "success")
-
             if user.role == "admin":
-                return render_template("admin/dashboard.html")
+                return redirect(url_for("main.admin_dashboard"))
             else:
                 return redirect(url_for("main.cars"))
         else:
