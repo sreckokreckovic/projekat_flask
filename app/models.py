@@ -46,7 +46,7 @@ class Car(db.Model):
     price_per_day = db.Column(db.Float)
     description = db.Column(db.Text)
 
-    images = db.relationship("CarImage", backref="car", lazy="select")
+    images = db.relationship("CarImage", backref="car", lazy="select",cascade="all, delete-orphan")
     reservations = db.relationship("Reservation", backref="car", lazy="select")
 
 

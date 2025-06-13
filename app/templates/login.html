@@ -43,7 +43,7 @@
 			<form class="login-form" method="POST" action="{{ url_for('main.login') }}">
 				{{ form.hidden_tag() }}
 
-				<label for="email">Korisničko ime (Email)</label>
+				<label for="email">Email</label>
 				{{ form.email(id="email", class="form-control", placeholder="Unesite email") }}
 
 				<label for="password">Lozinka</label>
